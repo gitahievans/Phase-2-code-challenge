@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PoemsContainer from "./PoemsContainer";
 import NewPoemForm from "./NewPoemForm";
+import Favorites from "./Favorites";
 
 function App() {
   const [poems, setPoems] = useState([]);
   const [isShowing, setIsShowing] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   //GET POEMS
   const POEMS = "http://localhost:8004/poems";
@@ -21,21 +23,25 @@ function App() {
   }, []);
 
   //DELETE POEMS
-
   function handleDeletePoem(deletedPoem) {
     const updatedPoems = poems.filter((poem) => poem.id !== deletedPoem.id);
     console.log(updatedPoems);
     setPoems(updatedPoems);
   }
 
+  //Show/hide new-poem form
   function handleClick() {
     setIsShowing((isShowing) => !isShowing);
   }
 
+  ////Adding new poem
   function updatePoems(newPoem) {
     setPoems([...poems, newPoem]);
   }
-  console.log(poems);
+
+  function updateFavPoems() {
+    setFavorites();
+  }
 
   return (
     <div className="app">
@@ -44,8 +50,16 @@ function App() {
           {isShowing ? "Hide new poem form" : "Show new poem form"}
         </button>
         {isShowing ? <NewPoemForm onAddNewPoem={updatePoems} /> : null}
+        <div>
+          <Favorites favs={favorites} />
+        </div>
       </div>
-      <PoemsContainer onHandldeDeletePoem={handleDeletePoem} poems={poems} />
+
+      <PoemsContainer
+        onAddFavPoem={updateFavPoems}
+        onHandldeDeletePoem={handleDeletePoem}
+        poems={poems}
+      />
     </div>
   );
 }

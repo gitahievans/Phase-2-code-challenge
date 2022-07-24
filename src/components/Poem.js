@@ -7,6 +7,7 @@ function Poem({ title, author, content, onClickDeleteButton, poem }) {
     setIsRead((isRead) => !isRead);
   }
 
+  //Delete
   function handleDeleteButton() {
     fetch(`http://localhost:8004/poems/${poem.id}`, {
       method: "DELETE",
@@ -30,6 +31,7 @@ function Poem({ title, author, content, onClickDeleteButton, poem }) {
       <button className="remove" onClick={handleDeleteButton}>
         DELETE
       </button>
+      <button className="favorites">Add To Favorites</button>
     </div>
   );
 }

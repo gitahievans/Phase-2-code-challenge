@@ -18,8 +18,11 @@ body {
 }
 
 .remove{
-  margin-left: 100px;
+  margin-left: 10px;
   
+}
+.favorites{
+  margin-left: 10px;
 }
 
 .sidebar > button {
