@@ -20,13 +20,16 @@ function NewPoemForm({ onAddNewPoem }) {
     })
       .then((res) => res.json())
       .then((newPoem) => onAddNewPoem(newPoem));
+    setTitle("");
+    setContent("");
+    setAuthor("");
   }
 
   return (
     <form className="new-poem-form" onSubmit={handleAddNewPoem}>
       <input
         value={title}
-        onChangeplaceholder="Title"
+        placeholder="Title"
         onChange={(e) => setTitle(e.target.value)}
       />
       <input

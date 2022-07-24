@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PoemsContainer from "./PoemsContainer";
 import NewPoemForm from "./NewPoemForm";
 
 function App() {
   const [poems, setPoems] = useState([]);
   const [isShowing, setIsShowing] = useState(true);
+
+  //GET POEMS
+  const POEMS = "http://localhost:8004/poems";
+
+  useEffect(() => {
+    fetch(POEMS)
+      .then((r) => r.json())
+      .then((poemData) => {
+        setPoems(poemData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //DELETE POEMS
+
+  function handleDeletePoem(deletedPoem) {
+    const updatedPoems = poems.filter((poem) => poem.id !== deletedPoem.id);
+    console.log(updatedPoems);
+    setPoems(updatedPoems);
+  }
 
   function handleClick() {
     setIsShowing((isShowing) => !isShowing);
@@ -23,7 +45,7 @@ function App() {
         </button>
         {isShowing ? <NewPoemForm onAddNewPoem={updatePoems} /> : null}
       </div>
-      <PoemsContainer />
+      <PoemsContainer onHandldeDeletePoem={handleDeletePoem} poems={poems} />
     </div>
   );
 }

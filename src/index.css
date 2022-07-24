@@ -17,6 +17,11 @@ body {
   padding: 1em;
 }
 
+.remove{
+  margin-left: 100px;
+  
+}
+
 .sidebar > button {
   width: 100%;
 }
